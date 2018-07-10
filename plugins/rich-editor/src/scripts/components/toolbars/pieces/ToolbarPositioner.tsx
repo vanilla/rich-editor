@@ -112,7 +112,7 @@ class ToolbarPositioner extends React.PureComponent<IProps, IState> {
         const numLines = this.quill.getLines(selectionIndex, selectionLength);
         let bounds;
 
-        if (numLines.length === 1) {
+        if (numLines.length <= 1) {
             bounds = this.quill.getBounds(selectionIndex, selectionLength);
         } else {
             // If multi-line we want to position at the center of the last line's selection.

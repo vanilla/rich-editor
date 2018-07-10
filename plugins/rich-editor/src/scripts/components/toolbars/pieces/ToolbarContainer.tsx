@@ -10,7 +10,7 @@ import { withEditor, IEditorContextProps } from "@rich-editor/components/context
 import ToolbarPositioner from "./ToolbarPositioner";
 
 interface IProps extends IEditorContextProps {
-    selection: RangeStatic | null;
+    selection: RangeStatic;
     isVisible: boolean;
 }
 

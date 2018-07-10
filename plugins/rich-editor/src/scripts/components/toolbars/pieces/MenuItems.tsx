@@ -11,9 +11,12 @@ import LinkBlot from "quill/formats/link";
 import { t } from "@dashboard/application";
 import MenuItem, { IMenuItemData } from "./MenuItem";
 import { withEditor, IEditorContextProps } from "@rich-editor/components/context";
-import { rangeContainsBlot } from "@rich-editor/quill/utility";
+import { rangeContainsBlot, getIDForQuill } from "@rich-editor/quill/utility";
+import { connect } from "react-redux";
+import withInstance from "@rich-editor/state/instance/withInstance";
+import { IEditorInstance } from "@rich-editor/state/IState";
 
-interface IProps extends IEditorContextProps {
+interface IOwnProps extends IEditorContextProps {
     menuItems?: {
         [key: string]: IMenuItemData;
     };
@@ -21,6 +24,8 @@ interface IProps extends IEditorContextProps {
     itemRole?: string;
     restrictedFormats?: null | string[];
 }
+
+interface IProps extends IOwnProps, IEditorInstance {}
 
 interface IState {
     range: RangeStatic;
@@ -251,4 +256,4 @@ export class MenuItems extends React.Component<IProps, IState> {
     }
 }
 
-export default withEditor<IProps>(MenuItems);
+export default withEditor<IOwnProps>(withInstance(MenuItems));

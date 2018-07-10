@@ -19,10 +19,8 @@ import {
     getBlotAtIndex,
     isEmbedSelected,
 } from "@rich-editor/quill/utility";
-import { connect } from "react-redux";
-import IStoreState from "@rich-editor/state/IState";
-import { FOCUS_CLASS } from "@dashboard/embeds";
-import FocusableEmbedBlot from "@rich-editor/quill/blots/abstract/FocusableEmbedBlot";
+import withInstance from "@rich-editor/state/instance/withInstance";
+import { IEditorInstance } from "@rich-editor/state/IState";
 
 const PARAGRAPH_ITEMS = {
     header: {
@@ -44,12 +42,7 @@ const PARAGRAPH_ITEMS = {
     },
 };
 
-interface IOwnProps extends IEditorContextProps {}
-
-interface IProps extends IOwnProps {
-    lastGoodSelection?: RangeStatic | null;
-    currentSelection?: RangeStatic | null;
-}
+interface IProps extends IEditorContextProps, IEditorInstance {}
 
 interface IState {
     hasFocus: boolean;
@@ -376,19 +369,4 @@ export class ParagraphToolbar extends React.PureComponent<IProps, IState> {
     };
 }
 
-/**
- * Map in the instance state of the current editor.
- */
-function mapStateToProps(state: IStoreState, ownProps: IOwnProps) {
-    const { quill } = ownProps;
-    if (!quill) {
-        return {};
-    }
-
-    const id = getIDForQuill(quill);
-    const instanceState = state.editor.instances[id];
-    return instanceState;
-}
-
-const withRedux = connect(mapStateToProps);
-export default withEditor(withRedux(ParagraphToolbar));
+export default withEditor(withInstance(ParagraphToolbar));
