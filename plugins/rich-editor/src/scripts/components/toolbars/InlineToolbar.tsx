@@ -108,13 +108,6 @@ export class InlineToolbar extends React.Component<IProps, IState> {
 
     private handleFocusChange = hasRealFocus => {
         this.setState({ hasRealFocus });
-        // if (this.state.hasFocus && !hasFocus) {
-        //     this.reset();
-        // } else if (hasFocus) {
-        //     this.setState({ hasFocus });
-        // } else {
-        //     this.forceUpdate();
-        // }
     };
 
     /**
@@ -161,6 +154,9 @@ export class InlineToolbar extends React.Component<IProps, IState> {
         }
     };
 
+    /**
+     * Reset the current current link input.
+     */
     private reset = (clearSelection: boolean = false) => {
         const { lastGoodSelection } = this.props;
         if (clearSelection && lastGoodSelection) {
@@ -169,7 +165,6 @@ export class InlineToolbar extends React.Component<IProps, IState> {
 
         this.setState({
             inputValue: "",
-            // hasRealFocus: false,
         });
     };
 
@@ -186,6 +181,9 @@ export class InlineToolbar extends React.Component<IProps, IState> {
         return this.state.hasRealFocus || hasCurrentSelectionWithLength;
     }
 
+    /**
+     * Determine whether or not we should show the formats menu.
+     */
     private get isFormatMenuVisible(): boolean {
         const { lastGoodSelection } = this.props;
         if (!lastGoodSelection) {
@@ -203,6 +201,9 @@ export class InlineToolbar extends React.Component<IProps, IState> {
         return this.isFocused;
     }
 
+    /**
+     * Determine whether or not we should show the link menu.
+     */
     private get isLinkMenuVisible(): boolean {
         const { lastGoodSelection } = this.props;
         if (!lastGoodSelection) {
